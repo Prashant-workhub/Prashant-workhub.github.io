@@ -20,12 +20,21 @@
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: wheat;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+  font-family:
+    "Poppins",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
     sans-serif;
   background: radial-gradient(
     circle at top left,
@@ -219,7 +228,10 @@ body {
   font-size: 0.9rem;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s,
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s,
     border-color 0.18s;
 }
 
@@ -301,11 +313,8 @@ body {
 .photo-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-      circle at 20% 0,
-      rgba(236, 72, 153, 0.45),
-      transparent 55%
-    ),
+  background:
+    radial-gradient(circle at 20% 0, rgba(236, 72, 153, 0.45), transparent 55%),
     radial-gradient(
       circle at 80% 110%,
       rgba(59, 130, 246, 0.4),
@@ -638,7 +647,10 @@ body {
   padding: 0.55rem 0.75rem;
   font-size: 0.9rem;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s;
 }
 
 .contact-form input:focus,
@@ -667,7 +679,9 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
 .reveal.visible {
@@ -678,7 +692,9 @@ body {
 /* CARD HOVER / TILT LIGHT */
 
 .tilt {
-  transition: transform 0.22s ease, box-shadow 0.22s ease,
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
     border-color 0.22s ease;
 }
 
@@ -723,7 +739,9 @@ body {
     transform: scale(0.9);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   .nav-links.open {

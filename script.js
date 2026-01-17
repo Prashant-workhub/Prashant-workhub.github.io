@@ -44,7 +44,7 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.2 }
+  { threshold: 0.2 },
 );
 
 reveals.forEach((el) => observer.observe(el));
@@ -116,6 +116,17 @@ ${message}
     .catch(() => {
       formNote.textContent = "Failed to send message.";
     });
+});
+
+const form = document.querySelector(".contact-form");
+const note = document.getElementById("form-note");
+
+form.addEventListener("submit", () => {
+  // Clear all inputs
+  form.reset();
+
+  // Optional feedback message
+  note.textContent = "Message sent successfully (demo).";
 });
 
 // Footer year

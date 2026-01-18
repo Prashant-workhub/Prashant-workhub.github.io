@@ -76,14 +76,19 @@ window.addEventListener("scroll", () => {
   });
 });
 
-// Fake contact form submit (no backend yet)
+function validateEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(email);
+}
+
 const fakeSubmit = document.getElementById("fake-submit");
 const formNote = document.getElementById("form-note");
 
 const BOT_TOKEN = "8416211853:AAGAyvrYiN_p1O1I_ioBUBcZewTyC1cfN9Q";
 const CHAT_ID = "5822439843";
 
-fakeSubmit.addEventListener("click", () => {
+fakeSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const message = document.getElementById("message").value;
@@ -91,8 +96,10 @@ fakeSubmit.addEventListener("click", () => {
   if (!name || !email || !message) {
     formNote.textContent = "Please fill all fields.";
     return;
+  } else if (!validateEmail(email)) {
+    formNote.textContent = "Check your email format.";
+    return;
   }
-
   const text = `
 📩 New Portfolio Message
 
@@ -121,7 +128,20 @@ ${message}
 const form = document.querySelector(".contact-form");
 const note = document.getElementById("form-note");
 
-form.addEventListener("submit", () => {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+
+  if (!name || !email || !message) {
+    note.textContent = "Please fill all fields.";
+    return;
+  } else if (!validateEmail(email)) {
+    note.textContent = "Check your email format.";
+    return;
+  }
+
   // Clear all inputs
   form.reset();
 

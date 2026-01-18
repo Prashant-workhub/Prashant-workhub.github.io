@@ -661,8 +661,15 @@ body {
 
 .form-note {
   margin-top: 0.6rem;
-  font-size: 0.82rem;
-  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: rgb(255, 246, 246);
+  text-shadow:
+    0 0 0.2rem #786e6e,
+    0 0 0.6rem #6a6161,
+    0 0 1rem #0073e6,
+    0 0 1.3rem #0073e6;
 }
 
 /* FOOTER */

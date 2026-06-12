@@ -1,12 +1,15 @@
 // Typing effect for the subtitle
 const typingElement = document.querySelector(".typing");
-const phrases = JSON.parse(typingElement.getAttribute("data-text"));
+const phrases = typingElement
+  ? JSON.parse(typingElement.getAttribute("data-text"))
+  : [];
 let phraseIndex = 0;
 let charIndex = 0;
 let deleting = false;
 
 function typeLoop() {
   const current = phrases[phraseIndex];
+
   if (!deleting) {
     typingElement.textContent = current.slice(0, ++charIndex);
     if (charIndex === current.length) {
@@ -21,26 +24,22 @@ function typeLoop() {
       phraseIndex = (phraseIndex + 1) % phrases.length;
     }
   }
+
   setTimeout(typeLoop, deleting ? 60 : 90);
 }
-if (typingElement && phrases.length) typeLoop();
 
-// IntersectionObserver for reveal animations and skill bars
+if (typingElement && phrases.length) {
+  typeLoop();
+}
+
+// IntersectionObserver for reveal animations
 const reveals = document.querySelectorAll(".reveal");
-const skillBars = document.querySelectorAll(".skill-fill");
 
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-
-        if (entry.target.classList.contains("skills-card")) {
-          skillBars.forEach((bar) => {
-            const target = bar.getAttribute("data-width");
-            bar.style.width = target + "%";
-          });
-        }
       }
     });
   },
@@ -81,73 +80,37 @@ function validateEmail(email) {
   return pattern.test(email);
 }
 
-const fakeSubmit = document.getElementById("fake-submit");
-const formNote = document.getElementById("form-note");
-
-const BOT_TOKEN = "8416211853:AAGAyvrYiN_p1O1I_ioBUBcZewTyC1cfN9Q";
-const CHAT_ID = "5822439843";
-
-fakeSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
-
-  if (!name || !email || !message) {
-    formNote.textContent = "Please fill all fields.";
-    return;
-  } else if (!validateEmail(email)) {
-    formNote.textContent = "Check your email format.";
-    return;
-  }
-  const text = `
-📩 New Portfolio Message
-
-👤 Name: ${name}
-📧 Email: ${email}
-💬 Message:
-${message}
-  `;
-
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text: text,
-    }),
-  })
-    .then(() => {
-      formNote.textContent = "Message sent successfully!";
-    })
-    .catch(() => {
-      formNote.textContent = "Failed to send message.";
-    });
-});
-
 const form = document.querySelector(".contact-form");
 const note = document.getElementById("form-note");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
+if (form && note) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  if (!name || !email || !message) {
-    note.textContent = "Please fill all fields.";
-    return;
-  } else if (!validateEmail(email)) {
-    note.textContent = "Check your email format.";
-    return;
-  }
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-  // Clear all inputs
-  form.reset();
+    if (!name || !email || !message) {
+      note.textContent = "Please fill all fields.";
+      return;
+    }
 
-  // Optional feedback message
-  note.textContent = "Message sent successfully (demo).";
-});
+    if (!validateEmail(email)) {
+      note.textContent = "Check your email format.";
+      return;
+    }
+
+    const subject = encodeURIComponent(`Portfolio message from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    );
+
+    note.textContent = "Opening your email app to send the message.";
+    window.location.href = `mailto:devmail.prashant@gmail.com?subject=${subject}&body=${body}`;
+    form.reset();
+  });
+}
 
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();

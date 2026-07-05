@@ -557,6 +557,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  margin-right: 0.4rem;
 }
 
 .project-links a:hover {
@@ -681,8 +682,6 @@ body {
   transform: translateY(0);
 }
 
-/* CARD HOVER / TILT LIGHT */
-
 .tilt {
   transition:
     transform 0.22s ease,
@@ -691,12 +690,11 @@ body {
 }
 
 .tilt:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
+  transition: 0.35s;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
   border-color: rgba(129, 140, 248, 0.9);
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 900px) {
   .hero {
@@ -784,4 +782,14 @@ body {
   .section {
     padding-inline: 5vw;
   }
+}
+
+.project-card {
+  min-height: 9rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-links {
+  margin-top: auto;
 }
